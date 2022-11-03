@@ -12,12 +12,21 @@ A Statamic addon providing common functionality and fixes among all Boilerplate 
 
 ## Installation
 
-Run the following commands:
+Extend the `require` and `repositories` section of your `composer.json`:
 
-``` bash
-composer require gridonic/statamic-boilerplate-addon
-php artisan vendor:publish --tag=statamic-boilerplate-addon-config
 ```
+"require": [
+    "gridonic/statamic-boilerplate-addon": "^1.0"
+],
+"repositories": [
+    {
+        "type": "git",
+        "url": "https://github.com/gridonic/statamic-boilerplate-addon.git"
+    }
+]
+```
+
+Then, run `composer update` to actually install this addon.
 
 ## Configuration
 
