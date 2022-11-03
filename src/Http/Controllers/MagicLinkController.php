@@ -6,6 +6,7 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Illuminate\Support\Facades\Auth;
 use Statamic\Facades\User;
+use Illuminate\Routing\Controller;
 
 class MagicLinkController extends Controller
 {
