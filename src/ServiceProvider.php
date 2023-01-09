@@ -3,6 +3,7 @@
 namespace Gridonic\StatamicBoilerplateAddon;
 
 use Gridonic\StatamicBoilerplateAddon\Listeners\SetRootAndDataFromOrigin;
+use Gridonic\StatamicBoilerplateAddon\Listeners\UpdateCachedOriginOfDescendants;
 use Gridonic\StatamicBoilerplateAddon\Tags\Boilerplate;
 use Statamic\Events\EntryCreated;
 use Statamic\Events\EntrySaved;

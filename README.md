@@ -9,6 +9,8 @@ A Statamic addon providing common functionality and fixes among all Boilerplate 
 * Multi language extensions
   * Always sets the entry of the default site as root of a newly created entry.
   * When creating a translation, all data is copied from the originated entry.
+  * Temporarily solves [multisite bug](https://github.com/statamic/cms/issues/6714) where translations do not inherit
+  * up-to-date data from orgin entry. 
 
 ## Installation
 
@@ -26,7 +28,7 @@ Extend the `require` and `repositories` section of your `composer.json`:
 ]
 ```
 
-Then, run `composer update` to actually install this addon.
+Then, run `composer update gridonic/statamic-boilerplate-addon` to actually install this addon.
 
 ## Configuration
 
