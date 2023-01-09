@@ -26,7 +26,7 @@ class UpdateCachedOriginOfDescendants
         });
         $directDescendants->each(function ($descendant) use ($parent) {
             $descendant->origin($parent);
-            Statamic\Facades\Entry::save($descendant);
+            \Statamic\Facades\Entry::save($descendant);
             $this->updateCacheOfLocalizedDescendants($descendant);
         });
     }
