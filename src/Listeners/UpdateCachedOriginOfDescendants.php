@@ -15,19 +15,13 @@ class UpdateCachedOriginOfDescendants
         $this->updateCacheOfLocalizedDescendants($event->entry);
     }
 
-    private function updateCacheOfLocalizedDescendants(Entry $parent)
+    private function updateCacheOfLocalizedDescendants(Entry $entry)
     {
-        if ($parent->descendants()->count() === 0) {
-            return;
-        }
-
-        $directDescendants = $parent->descendants()->filter(function ($descendant) use ($parent) {
-            return $descendant->origin()->id() === $parent->id();
-        });
-        $directDescendants->each(function ($descendant) use ($parent) {
-            $descendant->origin($parent);
-            \Statamic\Facades\Entry::save($descendant);
-            $this->updateCacheOfLocalizedDescendants($descendant);
+        $collectionHandle = $entry->collectionHandle();
+        $entry->descendants()->each(function ($descendant) use ($collectionHandle) {
+            $store = app('stache')->store("entries::${collectionHandle}");
+            $store->forgetItem($descendant->id());
+            $store->getItem($descendant->id());
         });
     }
 }
