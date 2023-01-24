@@ -8,9 +8,10 @@ A Statamic addon providing common functionality and fixes among all Boilerplate 
 * Offers Statamic control panel logins via magic links from our portal.
 * Multi language extensions
   * Always sets the entry of the default site as root of a newly created entry.
-  * When creating a translation, all data is copied from the originated entry.
+  * When creating a translation, all data is copied from the originated entry. Note: Only works when *Origin Behaviour* of
+the collection is set to *Let the user select the origin*. 
   * Temporarily solves [multisite bug](https://github.com/statamic/cms/issues/6714) where translations do not inherit
-  * up-to-date data from orgin entry. 
+up-to-date data from origin entry. 
 
 ## Installation
 
