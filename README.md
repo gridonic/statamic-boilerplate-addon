@@ -6,7 +6,7 @@ A Statamic addon providing common functionality and fixes among all Boilerplate 
 
 * Provides a ``{{ boilerplate:version }}`` tag to output the version from the root `composer.json`.
 * Offers Statamic control panel logins via magic links from our portal.
-* Provides a route `/api/thumbnail/{preset}/{imageAssetId}` to output a thumbnail (via Glide)
+* Provides a web route `/thumbnail/{preset}/{imageAssetId}` to output a thumbnail (via Glide)
 using the given asset preset and id.
 * Multi language extensions
   * Always sets the entry of the default site as root of a newly created entry.
