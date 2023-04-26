@@ -8,10 +8,13 @@ use Statamic\Facades\Asset;
 
 class ThumbnailFromPresetController extends Controller
 {
-    public function thumbnail(string $preset, string $imageAssetId) {
+    public function thumbnail(string $preset, string $imageAssetIdEncoded) {
         if (!$this->isPreset($preset)) {
             abort(404);
         }
+
+        // ID needs to be encoded because it can contain slashes.
+        $imageAssetId = base64_decode($imageAssetIdEncoded);
 
         if (!$this->imageExists($imageAssetId)) {
             abort(404);
