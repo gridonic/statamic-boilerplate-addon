@@ -9,6 +9,10 @@ class SetRootAndDataFromOrigin
 {
     public function handle(EntryCreated $event)
     {
+        if (!config('statamic.boilerplate.multisite_set_data_from_origin')) {
+            return;
+        }
+
         /** @var Entry $entry */
         $entry = $event->entry;
         if ($entry->isRoot()) {

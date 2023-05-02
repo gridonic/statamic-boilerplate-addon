@@ -12,6 +12,10 @@ use Statamic\Events\EntrySaved;
 class UpdateCachedOriginOfDescendants
 {
     public function handle(EntrySaved $event) {
+        if (!config('statamic.boilerplate.multisite_update_cached_origin_of_descendants')) {
+            return;
+        }
+
         $this->updateCacheOfLocalizedDescendants($event->entry);
     }
 
