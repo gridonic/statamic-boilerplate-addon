@@ -20,9 +20,21 @@ class ThumbnailFromPresetController extends Controller
             abort(404);
         }
 
-        $imageManipulationUrl = Antlers::parse(sprintf('{{ glide src="%s" preset="%s" }}', $imageAssetId, $preset));
+        $url = Antlers::parse(sprintf('{{ glide src="%s" preset="%s" }}', $imageAssetId, $preset));
 
-        return redirect($imageManipulationUrl, 301);
+        // If the image manipulation cache is activated, the url points to a public image. Serve it directly.
+        if ($this->isImageManipulationCacheActive()) {
+            return response()->file(public_path($url));
+        }
+
+        // Else (no image manipulation cache) -> Redirect to glide.
+        // todo: affects performance, would be better to serve image via glide directly as well instead of performing a redirect.
+        return redirect($url, 301);
+    }
+
+    private function isImageManipulationCacheActive(): bool
+    {
+        return config('statamic.assets.image_manipulation.cache', false);
     }
 
     private function imageExists(string $imageId): bool
