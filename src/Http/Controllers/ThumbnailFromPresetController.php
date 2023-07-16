@@ -5,9 +5,17 @@ namespace Gridonic\StatamicBoilerplateAddon\Http\Controllers;
 use Illuminate\Routing\Controller;
 use Statamic\Facades\Antlers;
 use Statamic\Facades\Asset;
+use Illuminate\Http\Request;
 
 class ThumbnailFromPresetController extends Controller
 {
+    private Request $request;
+
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
+
     public function thumbnail(string $preset, string $imageAssetIdEncoded) {
         if (!$this->isPreset($preset)) {
             abort(404);
@@ -22,13 +30,16 @@ class ThumbnailFromPresetController extends Controller
 
         $url = Antlers::parse(sprintf('{{ glide src="%s" preset="%s" }}', $imageAssetId, $preset));
 
-        // If the image manipulation cache is activated, the url points to a public image. Serve it directly.
+        // If the image manipulation cache is activated, the url points to a public image.
         if ($this->isImageManipulationCacheActive()) {
+            // Return the image's url if the urlOnly flag is set, else serve the image directly.
+            if ($this->request->query('urlOnly')) {
+                return $url;
+            }
             return response()->file(public_path($url));
         }
 
-        // Else (no image manipulation cache) -> Redirect to glide.
-        // todo: affects performance, would be better to serve image via glide directly as well instead of performing a redirect.
+        // Else (no image manipulation cache) -> Redirect to glide url.
         return redirect($url, 301);
     }
 

@@ -22,6 +22,10 @@ the requirement of such token in the config (see `/config/statamic/assets.php`),
 As a workaround, the addon provides a route `/thumbnail/{preset}/{imageAssetId}` to create a thumbnail using the
 given [asset preset](https://statamic.dev/image-manipulation#presets) and image id returned by the content API.
 
+Add a `?urlOnly=1` query string to return the url to the resized image in the response instead of serving the thumbnail
+directly. Note that this only works if the [image manipulation cache](https://statamic.dev/image-manipulation#custom-path-static)
+is activated.
+
 **Usage**
 
 * Create a preset in `/config/statamic/assets.php`
