@@ -5,8 +5,11 @@ namespace Gridonic\StatamicBoilerplateAddon;
 use Gridonic\StatamicBoilerplateAddon\Listeners\SetRootAndDataFromOrigin;
 use Gridonic\StatamicBoilerplateAddon\Listeners\UpdateCachedOriginOfDescendants;
 use Gridonic\StatamicBoilerplateAddon\Tags\Boilerplate;
+use Illuminate\Support\Facades\View;
 use Statamic\Events\EntryCreated;
 use Statamic\Events\EntrySaved;
+use Statamic\Facades\GlobalSet;
+use Statamic\Facades\Site;
 use Statamic\Providers\AddonServiceProvider;
 use Statamic\Statamic;
 
@@ -33,6 +36,14 @@ class ServiceProvider extends AddonServiceProvider
 
     public function bootAddon()
     {
+        Statamic::booted(function () {
+            View::share('site', Site::current());
+            $sets = GlobalSet::all();
+            foreach ($sets as $set) {
+                View::share($set->handle(), $set->inCurrentSite());
+            }
+        });
+
         $this->publishConfig();
         Statamic::afterInstalled(function ($command) {
             $command->call('vendor:publish', [
